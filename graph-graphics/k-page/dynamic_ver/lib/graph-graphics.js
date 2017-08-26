@@ -103,6 +103,7 @@ function writePage(){
     text(lowerPage, 600, 660);
   }
 }
+
 //すべての辺の描画
 function edgesDraw(){
   for(var i=0;i<n;i++){
@@ -146,9 +147,8 @@ function vertexDraw(){
     else{//after mousePressing
       //挿入型
       //挿入型とは、移動された頂点が移動先の２つの頂点の間に移動される
-      if(whichMod == 1){
+      if(whichMod == 1)
         insertModMove(i);
-      }
       //交換型
       else{
         changeModMove(i);
