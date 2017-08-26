@@ -15,7 +15,6 @@
 
   <script type="text/javascript" src="../../libraries/p5.js"></script>
   <script type="text/javascript" src="../../libraries/p5.dom.js"></script>
-  <script type="text/javascript" src="../../libraries/p5.sound.js"></script>
 
   <script type="text/javascript" src="jsinput.js"></script>
   <script type="text/javascript" src="graph-graphics.js"></script>
@@ -23,93 +22,98 @@
   <style> body {padding: 0; margin: 0;} </style>
 </head>
 
-<div class="container">
-  <div class="masthead">
-    <h3 class="text-muted">k-page book embedding static ver </h3>
-  </div>
-  <div class="">
-    <canvas id="" width="700" height="740"></canvas>
-    <br>
-    <input type="button" name="name" value="前のページ" onclick="subPageNum()">
-    ｜第<input type="text" name="changePage" value="0" size="2">ページに
-    <input type="button" name="name" value="ジャンプ" onclick="changePageNum()">
-    ｜
-    <input type="button" name="name" value="後ろのページ" onclick="addPageNum()">
-    ｜
-    <br>
-    ｜
-    <input type="button" name="name" value="挿入型" onclick="insertMod()">
-    ｜
-    <input type="button" name="name" value="交換型" onclick="changeMod()">
-    ｜
-    <input id="whichModNow" type="button" value="挿入型now" onclick="changechangeMod()"></input>
-    ｜
-    <input type="button" name="name" value="output" onclick="jsoutput()">
-    ｜
-    <br>
-    ｜
-    頂点<input type="text" name="left" value="" size="2">と
-    頂点 <input type="text" name="right" value="" size="2">のエッジのページは
-    <input type="text" name="searchPage" value="" size="4">
-    <input type="button" name="search" value="である(サーチ)" onclick="searchPage()">
-    ｜ <input type="button" name="changePage" value="ページを変える" onclick="changechangePage()">
-    ｜
-    <p>
-      ========================================
-    </p>
-    <p>
-      <h5>INPUT FORM</h5>
-    </p>
-    ========================================<br>
-    ||注意：本ページの頂点交換は、挿入モードと交換モード両方ある。両方試して楽しんでください。|| <br>
-    ||注意；ドラッグするときに、スピードにご注意。||
-    <br><br>
-  </div>
-  <body>
+<body>
+  <div class="container">
+    <div class="masthead">
+      <h3 class="text-muted">k-page book embedding dynamic ver </h3>
+    </div>
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-12" id="drawingframe"></div>
 
-        <input type="button" name="put_input" value="送信" onclick="input()">
-        <input type="reset" name="clear_input" value="クリア">左のクリアボタンが動作しない
+      <input type="button" name="name" value="前のページ" onclick="subPageNum()">
+      第<input type="text" name="changePage" value="0" size="2">ページに
+      <input type="button" name="name" value="ジャンプ" onclick="changePageNum()">
+      <input type="button" name="name" value="後ろのページ" onclick="addPageNum()">
 
-        <form class="" action="index.html" method="post">
-          <textarea name="jsinput" rows="24" cols="40"></textarea>
+
+      <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-success active">
+          <input type="radio" value="挿入型" onclick="insertMod()">挿入型
+        </label>
+        <label class="btn btn-success">
+          <input type="radio" value="交換型" onclick="changeMod()">交換型
+        </label>
+      </div>
+
+      <input class="btn btn-secondary" id="whichModNow" type="button" value="挿入型now" onclick="changechangeMod()"></input>
+
+      <input class="btn btn-secondary" type="button" name="name" value="output" onclick="jsoutput()">
+
+
+
+      頂点<input type="text" name="left" value="" size="2">と
+      頂点 <input type="text" name="right" value="" size="2">のエッジのページは
+      <input type="text" name="searchPage" value="" size="4">
+      <input type="button" name="search" value="である(サーチ)" onclick="searchPage()">
+      <input type="button" name="changePage" value="ページを変える" onclick="changechangePage()">
+
+      <p>
+        ========================================
+      </p>
+      <p>
+        <h5>INPUT FORM</h5>
+      </p>
+      ========================================
+      注意：本ページの頂点交換は、挿入モードと交換モード両方ある。両方試して楽しんでください。
+      注意；ドラッグするときに、スピードにご注意。
+
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-10 col-md-6 col-lg-4">
+        <form class="" action="index.html" method="get">
           <br>
-          <input type="button" name="put_input" value="送信" onclick="input()">
-          <input type="reset" name="clear_input" value="クリア">
+          <textarea name="jsinput" rows="20" cols="25"></textarea>
+          <br>
+          <button type="button" class="btn btn-secondary" name="put_input" value="送信" onclick="input()">送信</button>
+          <button type="reset" class="btn btn-secondary" name="clear_input" value="クリア">クリア</button>
         </form>
       </div>
-      <div class="col-lg-4">
-        ## input format <br>
-        <br>
-        6 # First value is the number of nodes (N) <br>
-        2 # Second value is the number of pages (K) <br>
-        0 # Next N numbers describe a permutation of the nodes as they occur along the spine. <br>
-        1 <br>
-        2 <br>
-        3 <br>
-        4 <br>
-        5 <br>
-        # Remaining lines are the edges. <br>
-        # The first value is the source node. <br>
-        # The second value is the target node. <br>
-        # The third value is enclosed in rectangular brackets and describes the page to which that edge is assigned. <br>
-        0 1 [1]                 # Edge between Node 0 and Node 1 on page 1 <br>
-        0 3 [0]                 # Edge between Node 0 and Node 3 on page 0 <br>
-        0 5 [0]                 # Edge between Node 0 and Node 5 on page 0 <br>
-        1 2 [1]                 # Edge between Node 1 and Node 2 on page 1 <br>
-        1 4 [0]                 # Edge between Node 1 and Node 4 on page 0 <br>
-        2 4 [1]                 # Edge between Node 2 and Node 4 on page 1 <br>
-        2 5 [0]                 # Edge between Node 2 and Node 5 on page 0 <br>
-        4 5 [1]                 # Edge between Node 4 and Node 5 on page 1 <br>
-        ========================================<br>
-        <div class="">
-          <a href="../../inputdata/graph9.txt">input example</a>
 
+      <div class="col-10 col-md-6 col-lg-4">
+        <pre>
+## input format
+
+6 # First value is the number of nodes (N)
+2 # Second value is the number of pages (K)
+0 # Next N numbers describe a permutation of the nodes as they occur along the spine.
+1
+2
+3
+4
+5
+# Remaining lines are the edges.
+# The first value is the source node.
+# The second value is the target node.
+# The third value is enclosed in rectangular brackets and describes the page to which that edge is assigned.
+0 1 [1]                 # Edge between Node 0 and Node 1 on page 1
+0 3 [0]                 # Edge between Node 0 and Node 3 on page 0
+0 5 [0]                 # Edge between Node 0 and Node 5 on page 0
+1 2 [1]                 # Edge between Node 1 and Node 2 on page 1
+1 4 [0]                 # Edge between Node 1 and Node 4 on page 0
+2 4 [1]                 # Edge between Node 2 and Node 4 on page 1
+2 5 [0]                 # Edge between Node 2 and Node 5 on page 0
+4 5 [1]                 # Edge between Node 4 and Node 5 on page 1
+========================================
+        </pre>
+        <div class="">
         </div>
       </div>
-      <div class="col-lg-4">
+      <div class="col-10 col-lg-4">
         ## output form
+        <br>
         <textarea name="jsoutput" rows="8" cols="40"></textarea>
       </div>
     </div>

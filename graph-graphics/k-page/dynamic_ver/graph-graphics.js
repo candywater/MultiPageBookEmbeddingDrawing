@@ -30,7 +30,8 @@ var searchPageNow = -1;
 //p5jsの必要不可欠な関数
 function setup() {
   var cnv = createCanvas(cx, cy);
-  cnv.position(100, 65);
+  cnv.parent("drawingframe")
+  //cnv.position(100, 65);
   noFill();
   initial();
 }
@@ -43,9 +44,7 @@ function draw(){
 
   //頂点を描くための変数処理
   vertexCompute();
-  //draw edges first, then vertexes
   edgesDraw();
-  //then vertex
   vertexDraw();
 }
 
@@ -178,7 +177,7 @@ function whenMouseIsPressed(i, overVertex){
 }
 
 function isMouseOverVertex(i){
-  return (distance(mouseX, mouseY, 
+  return (distance(mouseX, mouseY,
         vertexPositionNowX[i], vertexPositionNowY[i]) <= vertex_r) ? true : false;
 }
 
