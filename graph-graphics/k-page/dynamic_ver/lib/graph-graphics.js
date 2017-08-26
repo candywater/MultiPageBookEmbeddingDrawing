@@ -48,6 +48,11 @@ function draw(){
   vertexDraw();
 }
 
+/***
+----------
+**/
+
+
 function initial(){
   page = 0;
   console.log("page:",page);
@@ -71,9 +76,6 @@ function vertexCompute(){
   return vertex_space;
 }
 
-//------------------------------------------
-//描画処理の必要な関数集
-//------------------------------------------
 //ページ数の描画
 function writePage(){
   //process of page
