@@ -1,5 +1,8 @@
 ### graph-graphics
 
+__demoはこちらである。[ここをクリック。](graph-graphics/k-page/dynamic_ver/)__
+
+__[click here for demo.](graph-graphics/k-page/dynamic_ver/)__
 
 このプログラムは、
 book-embedding問題の
