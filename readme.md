@@ -1,6 +1,6 @@
 ### graph-graphics
 
-__demoはこちらである。[ここをクリック。](graph-graphics/k-page/dynamic_ver/)__
+__demoは[こちら](graph-graphics/k-page/dynamic_ver/)である。__
 
 __[click here for demo.](graph-graphics/k-page/dynamic_ver/)__
 
