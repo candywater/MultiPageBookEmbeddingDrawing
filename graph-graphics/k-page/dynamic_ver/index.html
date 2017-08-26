@@ -1,0 +1,134 @@
+<!DOCTYPE>
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+  <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"-->
+  <link rel="stylesheet" href="../../libraries/bootstrap-3.3.6-dist/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+  <!-- Optional theme -->
+  <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"-->
+  <link rel="stylesheet" href="../../libraries/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" media="screen" title="no title" charset="utf-8">
+
+
+  <meta charset="UTF-8">
+  <meta name="description" content="graph-graphics">
+  <meta name="author" content="Seikai Y.">
+  <title>k-page book embedding static ver </title>
+
+  <!-- script language = 'javascript' src = "http://p5js.org/reference/#/libraries/p5.js"-->
+  <script language="javascript" type="text/javascript" src="../../libraries/p5.js"></script>
+  <!-- uncomment lines below to include extra p5 libraries -->
+  <!-- script language = 'javascript' src = "http://p5js.org/reference/#/libraries/p5.dom.js"-->
+  <script language="javascript" src="../../libraries/p5.dom.js"></script>
+  <!-- script language = 'javascript' src = "http://p5js.org/reference/#/libraries/p5.sound.js"-->
+  <script language="javascript" src="../../libraries/p5.sound.js"></script>
+
+  <!--自分の書いたコードは下の二行である-->
+  <script type="text/javascript" src="jsinput.js"></script>
+  <script language="javascript" type="text/javascript" src="graph-graphics.js"></script>
+  <!-- this line removes any default padding and style. you might only need one of these values set. -->
+  <style> body {padding: 0; margin: 0;} </style>
+</head>
+<div class="container">
+<div class="masthead">
+<h3 class="text-muted">k-page book embedding static ver </h3>
+</div>
+<div class="">
+  <canvas id="" width="700" height="740"></canvas>
+  <br>
+  <input type="button" name="name" value="前のページ" onclick="subPageNum()">
+  ｜第<input type="text" name="changePage" value="0" size="2">ページに
+  <input type="button" name="name" value="ジャンプ" onclick="changePageNum()">
+  ｜
+  <input type="button" name="name" value="後ろのページ" onclick="addPageNum()">
+  ｜
+  <br>
+  ｜
+  <input type="button" name="name" value="挿入型" onclick="insertMod()">
+  ｜
+  <input type="button" name="name" value="交換型" onclick="changeMod()">
+  ｜
+  <input id="whichModNow" type="button" value="挿入型now" onclick="changechangeMod()"></input>
+  ｜
+  <input type="button" name="name" value="output" onclick="jsoutput()">
+  ｜
+  <br>
+  ｜
+  頂点<input type="text" name="left" value="" size="2">と
+  頂点 <input type="text" name="right" value="" size="2">のエッジのページは
+  <input type="text" name="searchPage" value="" size="4">
+  <input type="button" name="search" value="である(サーチ)" onclick="searchPage()">
+  ｜ <input type="button" name="changePage" value="ページを変える" onclick="changechangePage()">
+  ｜
+<p>
+========================================
+</p>
+<p>
+  <h5>INPUT FORM</h5>
+</p>
+========================================<br>
+||注意：本ページの頂点交換は、挿入モードと交換モード両方ある。両方試して楽しんでください。|| <br>
+||注意；ドラッグするときに、スピードにご注意。||
+<br><br>
+</div>
+<body>
+<div class="row">
+  <div class="col-lg-4">
+
+  <input type="button" name="put_input" value="送信" onclick="input()">
+  <input type="reset" name="clear_input" value="クリア">左のクリアボタンが動作しない
+
+  <form class="" action="index.html" method="post">
+    <textarea name="jsinput" rows="24" cols="40"></textarea>
+    <br>
+    <input type="button" name="put_input" value="送信" onclick="input()">
+    <input type="reset" name="clear_input" value="クリア">
+  </form>
+  </div>
+  <div class="col-lg-4">
+## input format <br>
+<br>
+6 # First value is the number of nodes (N) <br>
+2 # Second value is the number of pages (K) <br>
+0 # Next N numbers describe a permutation of the nodes as they occur along the spine. <br>
+1 <br>
+2 <br>
+3 <br>
+4 <br>
+5 <br>
+# Remaining lines are the edges. <br>
+# The first value is the source node. <br>
+# The second value is the target node. <br>
+# The third value is enclosed in rectangular brackets and describes the page to which that edge is assigned. <br>
+0 1 [1]                 # Edge between Node 0 and Node 1 on page 1 <br>
+0 3 [0]                 # Edge between Node 0 and Node 3 on page 0 <br>
+0 5 [0]                 # Edge between Node 0 and Node 5 on page 0 <br>
+1 2 [1]                 # Edge between Node 1 and Node 2 on page 1 <br>
+1 4 [0]                 # Edge between Node 1 and Node 4 on page 0 <br>
+2 4 [1]                 # Edge between Node 2 and Node 4 on page 1 <br>
+2 5 [0]                 # Edge between Node 2 and Node 5 on page 0 <br>
+4 5 [1]                 # Edge between Node 4 and Node 5 on page 1 <br>
+========================================<br>
+  <div class="">
+    <a href="../../inputdata/graph9.txt">input example</a>
+
+  </div>
+  </div>
+  <div class="col-lg-4">
+    ## output form
+    <textarea name="jsoutput" rows="8" cols="40"></textarea>
+  </div>
+</div>
+</div>
+
+
+
+
+</body>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script-->
+<script type="text/javascript" src="../../libraries/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script type="text/javascript" src="../../libraries/bootstrap-3.3.6-dist/js/bootstrap.min.js" ></script>
+<!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script-->
+</html>
