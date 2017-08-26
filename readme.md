@@ -1,8 +1,8 @@
 ### graph-graphics
 
-__demoは[こちら](graph-graphics/k-page/dynamic_ver/)である。__
+__demoは[こちら](https://candywater.github.io/MultiPageBookEmbeddingDrawing/graph-graphics/k-page/dynamic_ver/)である。__
 
-__[click here for demo.](graph-graphics/k-page/dynamic_ver/)__
+__[click here for demo.](https://candywater.github.io/MultiPageBookEmbeddingDrawing/graph-graphics/k-page/dynamic_ver/)__
 
 このプログラムは、
 book-embedding問題の
