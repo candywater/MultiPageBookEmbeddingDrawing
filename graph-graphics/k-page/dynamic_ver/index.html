@@ -16,8 +16,9 @@
   <script type="text/javascript" src="../../libraries/p5.js"></script>
   <script type="text/javascript" src="../../libraries/p5.dom.js"></script>
 
-  <script type="text/javascript" src="jsinput.js"></script>
-  <script type="text/javascript" src="graph-graphics.js"></script>
+  <script type="text/javascript" src="./lib/jsinput.js"></script>
+  <script type="text/javascript" src="./lib/graph-graphics.js"></script>
+  <script type="text/javascript" src="./lib/button_movement.js"></script>
 
   <style> body {padding: 0; margin: 0;} </style>
 </head>
@@ -30,42 +31,63 @@
     <div class="row">
       <div class="col-12" id="drawingframe"></div>
 
-      <input type="button" name="name" value="前のページ" onclick="subPageNum()">
-      第<input type="text" name="changePage" value="0" size="2">ページに
-      <input type="button" name="name" value="ジャンプ" onclick="changePageNum()">
-      <input type="button" name="name" value="後ろのページ" onclick="addPageNum()">
-
-
       <div class="btn-group" data-toggle="buttons">
-        <label class="btn btn-success active">
-          <input type="radio" value="挿入型" onclick="insertMod()">挿入型
+        <label class="btn btn-secondary" onclick="subPageNum()">
+          <input type="radio" name="options" >前のページ
         </label>
-        <label class="btn btn-success">
-          <input type="radio" value="交換型" onclick="changeMod()">交換型
+        <label class="btn btn-secondary" onclick="addPageNum()">
+          <input type="radio" name="options" >後ろのページ
         </label>
       </div>
 
-      <input class="btn btn-secondary" id="whichModNow" type="button" value="挿入型now" onclick="changechangeMod()"></input>
+      <div class="mr-2"></div>
 
-      <input class="btn btn-secondary" type="button" name="name" value="output" onclick="jsoutput()">
+      <div class="btn-group" role="group">
+        <span class="input-group-addon">第</span>
+        <input class=" " type="text" name="changePage" value="0" size="2">
+        <span class="input-group-addon">ページに</span>
+        <input class="btn btn-sm btn-secondary" type="button" name="name" value="ジャンプ" onclick="changePageNum()">
+      </div>
+
+      <div class="mr-2"></div>
+
+      <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-success active" onclick="insertMod()">
+          <input type="radio" name="options" id="insert">挿入型
+        </label>
+        <label class="btn btn-success" onclick="changeMod()">
+          <input type="radio" name="options" id="change">交換型
+        </label>
+      </div>
+
+      <div class="mr-2"></div>
+
+      <!--input class="btn btn-secondary" id="whichModNow" type="button"
+      value="挿入型now" onclick="changechangeMod()"></input-->
 
 
 
-      頂点<input type="text" name="left" value="" size="2">と
-      頂点 <input type="text" name="right" value="" size="2">のエッジのページは
-      <input type="text" name="searchPage" value="" size="4">
-      <input type="button" name="search" value="である(サーチ)" onclick="searchPage()">
-      <input type="button" name="changePage" value="ページを変える" onclick="changechangePage()">
+      <div class="btn-group">
+        <span class="input-group-addon">頂点</span>
+        <input type="text" name="left" value="" size="2">
+        <span class="input-group-addon">と</span>
+        <span class="input-group-addon">頂点</span>
+         <input type="text" name="right" value="" size="2">
+        <span class="input-group-addon">のエッジは</span>
+        <input type="text" name="searchPage" value="" size="4">
+        <input class="btn btn-secondary" type="button" name="search" value="ページにある" onclick="searchPage()">
+        <input class="btn btn-secondary" type="button" name="changePage" value="ページに変える" onclick="changechangePage()">
+      </div>
 
+      <br>
+
+      <p class="col-12">========================================</p>
       <p>
-        ========================================
+      注意：本ページの頂点交換は、挿入モードと交換モード二つある。
+      <br>
+      注意：ドラッグするときに、速すぎないように。
       </p>
-      <p>
-        <h5>INPUT FORM</h5>
-      </p>
-      ========================================
-      注意：本ページの頂点交換は、挿入モードと交換モード両方ある。両方試して楽しんでください。
-      注意；ドラッグするときに、スピードにご注意。
+      <p class="col-12">========================================</p>
 
     </div>
 
@@ -73,12 +95,13 @@
 
     <div class="row">
       <div class="col-10 col-md-6 col-lg-4">
+        <h5>INPUT FORM</h5>
         <form class="" action="index.html" method="get">
+          <button type="button" class="btn btn-secondary" name="put_input" value="送信" onclick="input()">データ送信</button>
+          <button type="reset" class="btn btn-secondary" name="clear_input" value="クリア">クリア</button>
           <br>
           <textarea name="jsinput" rows="20" cols="25"></textarea>
           <br>
-          <button type="button" class="btn btn-secondary" name="put_input" value="送信" onclick="input()">送信</button>
-          <button type="reset" class="btn btn-secondary" name="clear_input" value="クリア">クリア</button>
         </form>
       </div>
 
@@ -112,7 +135,9 @@
         </div>
       </div>
       <div class="col-10 col-lg-4">
-        ## output form
+        <h5>OUTPUT FORM</h5>
+        <br>
+        <input class="btn btn-secondary" type="button" name="name" value="output" onclick="jsoutput()">
         <br>
         <textarea name="jsoutput" rows="8" cols="40"></textarea>
       </div>

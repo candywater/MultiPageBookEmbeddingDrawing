@@ -313,8 +313,16 @@ function distance(x1, y1, x2, y2){
 function addPageNum(){page++;console.log("page:",page);}
 function subPageNum(){page--;console.log("page:",page);}
 function changePageNum(){page = int(document.getElementsByName("changePage")[0].value);console.log("page:",page);}
-function insertMod(){whichMod = 1;var tekito=document.getElementById("whichModNow").value="挿入型now";}
-function changeMod(){whichMod = 0;document.getElementById("whichModNow").value="交換型now";}
+function insertMod(){
+  whichMod = 1;
+  document.getElementById("whichModNow").value="挿入型now";
+  console.log("insert mod")
+}
+function changeMod(){
+  whichMod = 0;
+  document.getElementById("whichModNow").value="交換型now";
+  console.log("change mod")
+}
 function changechangeMod(){
   whichMod = (++whichMod)%2;
   document.getElementById("whichModNow").value = (whichMod == 1) ? "挿入型now" : "交換型now";
